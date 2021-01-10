@@ -9,13 +9,13 @@ import { filter } from 'bluebird';
   
   app.use(bodyParser.json());
  
-  app.get( "/filteredimage", async ( req, res ) => {
-    const imageUrl = req.query.image_url;
+  app.get( "/filteredimage", async ( req:Request, res:Response ) => {
+    let imageUrl: string = req.query.image_url;
 
     if(!imageUrl) {
       return res.status(400).send("Please provide an image URL");
     }
-    const filteredImage = await filterImageFromURL(imageUrl);
+    let filteredImage: string = await filterImageFromURL(imageUrl);
 
     res.status(200).sendFile(filteredImage, {}, async (err) => {
       if (err) {
